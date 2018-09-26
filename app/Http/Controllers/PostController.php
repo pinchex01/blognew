@@ -7,13 +7,7 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
 
-    public function __constract(){
-
-        $this->middleware('auth');
-    }
-
-
-    public function index() {
+    public function post() {
 
         return view('posts.post');
     }
