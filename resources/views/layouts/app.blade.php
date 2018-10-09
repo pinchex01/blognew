@@ -33,8 +33,12 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li><a href="{{ route('home') }}">Home</a></li>
-                        <li><a href="{{ route('post') }}">Add Post</a></li>
+                        <li class="nav-link">
+                            <a class="nav-link" href="{{ route('home') }}"> {{ __('Home') }} </a>
+                        </li>
+                        <li class="nav-link">
+                            <a class="nav-link" href="{{ route('post') }}"> {{ __('Add Post') }}</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -54,9 +58,13 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <ul class="dropdown-item" role="menu">
-                                        <li><a href="{{ url('/profile') }}">Profile</a></li>
-                                        <li><a href="{{ url('/category') }}">Category</a></li>
+                                    <ul class=" dropdown-item" role="menu">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ url('/profile') }}"> {{ __('Profile') }}</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ url('/category') }}"> {{ __('Category') }}</a>
+                                        </li>
                                     </ul>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

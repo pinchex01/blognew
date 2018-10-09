@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+<style type="text/css">
+  .avatar{
+      border-radius: 100%;
+      max-width: 100px;
+  }
+</style>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -24,7 +30,31 @@
                     @endif
 
                    <div class="col-md-4">
-                       <img src="" alt="">
+                     @if(!empty($profile))
+                     <img src= "{{ $profile -> profile_pic }} "
+                        class="avatar" alt="">
+                     @else
+                       <img src= "{{ url('images/avatar.jpg') }} "
+                         class="avatar" alt="">
+
+                     @endif
+
+                     @if(!empty($profile))
+                     <p class="lead"> {{ $profile -> name }} </p>
+
+                     @else
+                        <p></p>
+                     @endif
+
+                     @if(!empty($profile))
+
+                     <p class="lead"> {{ $profile -> designation }} </p>
+
+                     @else
+                        <p></p>
+                     @endif
+
+
                    </div>
                    <div class="col-md-8"> </div>
                 </div>
