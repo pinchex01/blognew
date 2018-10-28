@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\URL;
@@ -91,5 +92,21 @@ class PostController extends Controller
         $posts->update();
         return redirect('/home')->
         with('response', 'Post Updated successfully');
+    }
+    public function deletePost($post_id){
+        Post::where('id' , $post_id)
+        ->delete();
+        return redirect('/home')->
+        with('response', 'Post Deleted successfully');
+
+    }
+    public function category($cat_id){
+        $categories = category::all();
+        $posts = DB::table('posts')
+            ->join('categories', 'posts.category_id', '=', 'categories.id')
+            ->select('posts.*', 'categories.*')
+            ->where(['categories.id' => $cat_id])
+            ->get();
+        return view('categories.categoriesposts' , ['categories' => $categories , 'posts' => $posts]);
     }
 }

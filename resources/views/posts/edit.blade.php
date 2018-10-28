@@ -52,7 +52,7 @@
                                 <label for="category_id" class="col-sm-4 col-form-label text-md-right">{{ __('Category') }}</label>
 
                                 <div class="col-md-6">
-                                    <select id="category_id" type="category_id" class="form-control{{ $errors->has('category_id') ? ' is-invalid' : '' }}" required autofocus>
+                                    <select id="category_id" type="category_id" class="form-control{{ $errors->has('category_id') ? ' is-invalid' : '' }}" name="category_id" value="{{ old('category_id') }}" required autofocus>
                                         <option value="{{ $category->id }}">{{ $category->category }}</option>
                                         @if(count($categories) > 0)
                                           @foreach ($categories->all() as $category)
