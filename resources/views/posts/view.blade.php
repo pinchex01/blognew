@@ -27,7 +27,6 @@
         <div class="col-sm-8">
 
 
-                @forelse($posts->all() as $post)
                     <div class="card mb-3">
                         <div class="card-body">
                             <h4>{{ $post-> post_title }}</h4>
@@ -36,12 +35,12 @@
                             <ul class="nav nav-pills">
                                 <li role="presentation">
                                     <a href='{{ url("/like/{$post->id }") }}'>
-                                        <span class="fa fa-thumbs-up mr-4"> LIKE ()</span>
+                                        <span class="fa fa-thumbs-up mr-4"> LIKE ({{ $likectr }})</span>
                                     </a>
                                 </li>
                                 <li role="presentation">
                                     <a href='{{ url("/dislike/{$post->id}") }}'>
-                                        <span class="fa fa-thumbs-down mr-4"> DISLIKE ()</span>
+                                        <span class="fa fa-thumbs-down mr-4"> DISLIKE ({{$dislikectr}})</span>
                                     </a>
                                 </li>
                                 <li role="presentation">
@@ -52,9 +51,7 @@
                             </ul>
                         </div>
                     </div>
-                    @empty
-                    <p>No post Available</p>
-                @endforelse
+
 
 
 

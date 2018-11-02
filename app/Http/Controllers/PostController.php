@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\URL;
 use App\Category;
 use App\Post;
+use App\Like;
+use App\Dislike;
+
+
 use Auth;
 
 class PostController extends Controller
@@ -46,10 +50,16 @@ class PostController extends Controller
             with('response', 'Post Added successfully');
     }
 
-    public function view($post_id){
-        $posts = Post::where('id' , '=' , $post_id)->get();
+    public function view(Post $post){
+        $likectr = Like::where(['post_id' => $post->id])->count();
+        $dislikectr = Dislike::where(['post_id' => $post->id])->count();
         $categories = Category::all();
-        return view('posts.view' , ['posts' => $posts] , ['categories' => $categories]);
+        return view('posts.view' ,[
+            'post' => $post ,
+            'categories' => $categories,
+            'likectr' => $likectr,
+            'dislikectr' => $dislikectr
+        ]);
     }
     public function edit($post_id){
         $categories = Category::all();
@@ -108,5 +118,43 @@ class PostController extends Controller
             ->where(['categories.id' => $cat_id])
             ->get();
         return view('categories.categoriesposts' , ['categories' => $categories , 'posts' => $posts]);
+    }
+    public function like(Post $post){
+        $loggedin_user = Auth::user()->id;
+        $like_user = Like::where(['user_id' => $loggedin_user, 'post_id' => $post->id])->first();
+        if(!$like_user){
+            $user_id = Auth::user()->id;
+            $email = Auth::user()->email;
+            $post_id = $id;
+            $like = new Like;
+            $like->user_id = $user_id;
+            $like->email = $email;
+            $like->post_id = $post_id;
+            $like->save();
+            return redirect()->back();
+        }
+        else{
+            $like_user->delete();
+            return redirect()->back();
+        }
+    }
+    public function dislike(Post $post){
+        $loggedin_user = Auth::user()->id;
+        $dislike_user = Dislike::where(['user_id' => $loggedin_user, 'post_id' => $id])->first();
+        if(!$dislike_user){
+            $user_id = Auth::user()->id;
+            $email = Auth::user()->email;
+            $post_id = $id;
+            $like = new Like;
+            $like->user_id = $user_id;
+            $like->email = $email;
+            $like->post_id = $post_id;
+            $like->save();
+            return redirect()->back();
+        }
+        else{
+            $like_user->delete();
+            return redirect()->back();
+        }
     }
 }
